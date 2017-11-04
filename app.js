@@ -5,9 +5,11 @@ var app = express();
 
 app.use('/public', express.static(__dirname + '/public'));
 
+
 app.get('/', function(req, res) {
-    return res.redirect('/public/home.html');
+    return res.redirect('./public/index.html');
 });
+
 
 app.get('/music', function(req, res) {
     var fileId = req.query.id;
