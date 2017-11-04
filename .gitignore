@@ -1,3 +1,4 @@
 /node_modules/
 package-lock.json
-/music/*.mp3
+*.mp3
+*.png
