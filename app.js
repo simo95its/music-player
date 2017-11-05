@@ -7,7 +7,7 @@ app.use('/public', express.static(__dirname + '/public'));
 
 
 app.get('/', function(req, res) {
-    return res.redirect('./public/index.html');
+    return res.redirect('./public/home.html');
 });
 
 
