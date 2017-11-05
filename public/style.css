@@ -590,3 +590,7 @@ td > #repeat:checked ~ label.repeat:before {
 audio {
   visibility: hidden;
 }
+li{
+  list-style: none;
+}
+
