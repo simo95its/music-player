@@ -1,35 +1,26 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="./style.css">
+	</head>
+	<body>
+		<audio id="audio"></audio>
 
-<head>
-	<meta charset="utf-8">
-	<title></title>
-	<link rel="stylesheet" href="./style.css">
-</head>
+		<!-- Search -->
+		<div class="search">
+			<input id="searchbar" type="text" name="" value="Search a song" onkeypress="handleKeyPress(event)">
+		</div>
 
-<body>
-	<!-- PRESS THE MENU BUTTON TO TRIGGER ANIMATION -->
-	<!-- PRESS PLAY BUTTON TO LISTEN THE DEMO SONG -->
-
-	<!-- As seen on: "https://dribbble.com/shots/2144866-Day-5-Music-Player-Rebound/" -->
-
-	<!-- THANK YOU! -->
-
-	<article class="screen">
-		<input type="checkbox" value="None" id="magicButton" name="check" />
-		<label class="main" for="magicButton"></label>
-
-		<div class="coverImage"></div>
-		<div class="search"></div>
-		<div class="bodyPlayer"></div>
-
+		<!-- Song List -->
 		<table class="list">
 			<tr class="song">
 				<td class="nr">
 					<h5>1</h5>
 				</td>
 				<td class="title">
-						<li id="divine" data-value="divine.mp3" onclick="updateSource('divine')"><h6>Shape of You</h6></li>					
+						<li id="song1" data-value="song1.mp3" onclick="updateSource('song1')"><h6>song1</h6></li>
 				</td>
 				<td class="length">
 					<h5>3:22</h5>
@@ -45,8 +36,8 @@
 					<h5>2</h5>
 				</td>
 				<td class="title">
-				<li id="beginning" data-value="beginning.mp3" onclick="updateSource('beginning')"><h6>Particula</h6></li>
-					
+				<li id="song2" data-value="song2.mp3" onclick="updateSource('song2')"><h6>song2</h6></li>
+
 				</td>
 				<td class="length">
 					<h5>3:34</h5>
@@ -62,7 +53,7 @@
 					<h5>3</h5>
 				</td>
 				<td class="title">
-						<li id="hello" data-value="hello.mp3" onclick="updateSource('hello')"><h6>Fake Magic</h6></li>
+						<li id="song3" data-value="song3.mp3" onclick="updateSource('song3')"><h6>song3</h6></li>
 				</td>
 				<td class="length">
 					<h5>3:27</h5>
@@ -71,63 +62,100 @@
 					<input type="checkbox" id="heart3" checked />
 					<label class="zmr" for="heart3"></label>
 				</td>
-			</tr>	
+			</tr>
 		</table>
 
-		<div class="shadow"></div>
-
-		<div class="bar"></div>
-
-		<div class="info">
-			<h4 id="title"></h4>
-			<h3 id="artist"></h3>
-		</div>
-		<audio preload="auto" id="audio" controls>
-			<!-- <source src="http://localhost:3003/music?id=hello.mp3" type="audio/mpeg"> -->
-		</audio>
-		<table class="player">
-			<td>
-				<input type="checkbox" id="backward" />
-				<label class="backward" for="backward"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="play" title="Play" onclick="togglePlayPause()" />
-				<label class="play" for="play"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="forward" onclick="changeTracks()"/>
-				<label class="forward" for="forward"></label>
-			</td>
-		</table>
-
-		<table class="footer">
-			<td>
-				<input type="checkbox" id="love" checked />
-				<label class="love" for="love"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="shuffle" />
-				<label class="shuffle" for="shuffle"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="repeat" checked />
-				<label class="repeat" for="repeat"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="options" />
-				<label class="options" for="options"></label>
-			</td>
-		</table>
-
-		<div class="current">
-			<h2>STRESSED OUT</h2>
+		<!-- Cover -->
+		<div class="coverImage">
+			<img src="song.png" alt="">
 		</div>
 
+		<!-- Player -->
+		<div class="bodyPlayer">
+			<div id="bars" hidden="false">
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
 
-	</article>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+				<div class="bar"></div>
+			</div>
+			<div class="info">
+				<h4 id="title"></h4>
+				<h3 id="artist"></h3>
+			</div>
+			<table class="player">
+				<td>
+					<input type="checkbox" id="backward" />
+					<label class="backward" for="backward"></label>
+				</td>
+				<td>
+					<input type="checkbox" id="play" title="Play" onclick="togglePlayPause()" />
+					<label class="play" for="play"></label>
+				</td>
+				<td>
+					<input type="checkbox" id="forward" onclick="changeTracks()"/>
+					<label class="forward" for="forward"></label>
+				</td>
+			</table>
+			<table class="footer">
+				<td>
+					<input type="checkbox" id="love" checked />
+					<label class="love" for="love"></label>
+				</td>
+				<td>
+					<input type="checkbox" id="shuffle" />
+					<label class="shuffle" for="shuffle"></label>
+				</td>
+				<td>
+					<input type="checkbox" id="repeat" checked />
+					<label class="repeat" for="repeat"></label>
+				</td>
+				<td>
+					<input type="checkbox" id="options" />
+					<label class="options" for="options"></label>
+				</td>
+			</table>
+		</div>
 
-	<script type="text/javascript" src="./main.js"></script>
-	<script src="https://use.fontawesome.com/32a0411295.js"></script>
-</body>
 
+
+<!--
+		<article class="screen" hidden="true">
+
+			Magic Button
+			<input type="checkbox" value="None" id="magicButton" name="check" />
+			<label class="main" for="magicButton"></label>
+
+			<div class="current">
+				<h2>STRESSED OUT</h2>
+			</div>
+
+
+		</article> -->
+
+		<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+	  	</script>
+		<script type="text/javascript" src="./main.js"></script>
+		<script src="https://use.fontawesome.com/32a0411295.js"></script>
+
+	</body>
 </html>

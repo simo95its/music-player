@@ -1,0 +1,17 @@
+.screen {
+  background-color: #fff;
+  padding: 0;
+
+  height: 100%;
+  width: 75%;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+
+  transform: translate(-50%, 0);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  margin: 0;
+}

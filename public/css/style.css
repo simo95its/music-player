@@ -1,16 +1,21 @@
-/* PRESS THE MENU BUTTON FOR ANIMATION */
-/* PRESS PLAY BUTTON TO LISTEN THE DEMO SONG */
-
-/* As seen on: "https://dribbble.com/shots/2144866-Day-5-Music-Player-Rebound/" */
-
-/* THANK YOU! */
-
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+@import "./player.css";
+/*@import "./screen.css";*/
+@import "./info.css";
+@import "./bodyPlayer.css";
+@import "./bar.css";
+@import "./footer.css";
+@import "./coverImage.css";
+/*@import "./magicButton.css";*/
+@import "./search.css";
 
 body {
   background: #ff564c;
   padding: 0;
   margin: 0;
+  height: 100vh;
+  width: 100vh;
 }
 
 @keyframes harlem {
@@ -80,7 +85,7 @@ h3 {
 }
 
 h4 {
-  margin: 0 0 5px 29px;
+  margin: 0 0 5px 0;
   padding: 0;
   font-size: 14px;
   line-height: 14px;
@@ -109,126 +114,43 @@ h6 {
   color: #f0f0f0;
 }
 
-.screen {
-  background-color: #fff;
-  padding: 0;
-  height: 650px;
-  width: 366px;
-  position: absolute;
-  left: 50%;
-	top: 0;
-	transform: translate(-50%, 0);
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  margin: 30px 0;
-}
-
-.header {
-  display: inline-flex;
-  margin: 0 0 40px 0;
-}
 
 input[type=checkbox] {
   visibility: hidden;
   margin: 0;
   padding: 0;
   z-index: 10;
+  height: 0;
+  width: 0;
 }
 
-label.main:before {
-  position: absolute;
-  top: 23px;
-  left: 23px;
-  font-family: FontAwesome;
-  content: '\f0c9';
-  color: #959595;
-  font-size: 16px;
-  line-height: 16px;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease-in;
-}
 
-label.main:hover:before {
-  color: #bbb;
-}
 
-.screen > #magicButton:checked ~ label.main:before {
-  color: #ff564c;
-  transition: all 0.3s ease-in;
-}
 
-.coverImage {
-  background: url('https://media.giphy.com/media/MRhZKuJo2OXy8/giphy.gif') no-repeat;
-  background-size: cover;
-  width: 366px;
-  height: 366px;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0% 0%;
-  transition: all 0.3s ease-in;
-}
 
-.screen > #magicButton:checked ~ .coverImage {
-  transform: scale(0.251, 0.251);
-  left: 23px;
-  top: 60px;
-  transition: all 0.3s ease-in;
-  border-radius: 20px;
-}
 
-.search:before {
-  position: absolute;
-  top: 23px;
-  right: 23px;
-  font-family: FontAwesome;
-  content: '\f002';
-  color: #959595;
-  font-size: 16px;
-  line-height: 16px;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease-in;
-}
 
-.search:hover:before {
-  color: #bbb;
-}
 
-.bodyPlayer {
-  position: absolute;
-  top: 366px;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  height: 286px;
-  width: 366px;
-  background: #111;
-  transition: all 0.3s ease-in;
-}
-
-.screen > #magicButton:checked ~ .bodyPlayer {
-  height: 470px;
-  left: 0;
-  top: 180px;
-  transition: all 0.3s ease-in;
-}
 
 .list {
   border-spacing: 0px 2px;
-  width: 342px;
-  visibility: hidden;
-  opacity: 0;
+  width: 25%;
+  height: 95%;
   position: absolute;
-  top: 378px;
-  left: 12px;
+  top: 5%;
+  left: 0;
+  /*
   transform-origin: 0% 0%;
   transform: scale(0.1, 0.1);
   transition: all 0.3s ease-in;
+  */
 }
+
+
+
+
+
+
 
 .list tr {
   transform-origin: 0% 50%;
@@ -243,18 +165,7 @@ label.main:hover:before {
   cursor: pointer;
 }
 
-.title {
-  width: 215px;
-  text-align: left;
-  text-indent: 15px;
-  transition: all 0.11s ease-in;
-}
 
-.list tr:hover .title {
-  padding-left: 5px;
-  width: 210px;
-  transition: all 0.11s ease-in;
-}
 
 .screen > #magicButton:checked ~ .list {
   top: 192px;
@@ -376,10 +287,11 @@ td > #heart8:checked ~ label.zmr:before {
   transition: all 0.15s linear;
 }
 
+/*
 .bar {
   background: url('http://rs1378.pbsrc.com/albums/ah82/EmpressSupreme/oie_rounded_corners_zpsab0vg5vf.gif?w=280&h=210&fit=crop') no-repeat;
   background-size: 100%;
-  width: 320px;
+  width: 100%;
   height: 21px;
   position: absolute;
   top: 407px;
@@ -387,128 +299,16 @@ td > #heart8:checked ~ label.zmr:before {
   transform-origin: 0% 0%;
   transition: all 0.3s ease-in;
 }
-
+*/
+/*
 .screen > #magicButton:checked ~ .bar {
   top: 119px;
   left: 126px;
   transform: scale(0.6875, 0.6875);
   transition: all 0.3s ease-in;
 }
+*/
 
-.info {
-  width: 157px;
-  position: absolute;
-  left: 104px;
-  top: 440px;
-  transition: all 0.3s ease-in;
-}
-
-.screen > #magicButton:checked ~ .info {
-  top: 66px;
-  left: 126px;
-  text-align: left;
-  transition: all 0.3s ease-in;
-}
-
-.screen > #magicButton:checked ~ .info h4 {
-  margin-left: 0;
-  font-size: 16px;
-  color: #111111;
-  transition: all 0.3s ease-in;
-}
-
-.player {
-  background: none;
-  text-align: center;
-  font-family: FontAwesome;
-  color: #fff;
-  font-size: 26px;
-  line-height: 26px;
-  width: 216px;
-  height: 35px;
-  position: absolute;
-  bottom: 100px;
-  left: 48%;
-  transform: translate(-50%, 0);
-  z-index: 10;
-  transition: all 0.3s ease-in;
-  border-spacing: 0;
-}
-
-.player td {
-  width: 72px;
-}
-
-.backward:before {
-  content: "\f04a";
-  cursor: pointer;
-  transition: all 0.15s linear;
-}
-
-.play:before {
-  content: "\f04b";
-  cursor: pointer;
-  transition: all 0.15s linear;
-}
-
-.forward:before {
-  content: "\f04e";
-  cursor: pointer;
-  transition: all 0.15s linear;
-}
-
-.backward:hover:before {
-  color: #bbb;
-  transition: all 0.15s linear;
-}
-
-.play:hover:before {
-  color: #bbb;
-  transition: all 0.15s linear;
-}
-
-.forward:hover:before {
-  color: #bbb;
-  transition: all 0.15s linear;
-}
-
-td > #play:checked ~ label.play:before {
-  content: "\f04c";
-  transition: all 0.15s linear;
-}
-
-.screen > #magicButton:checked ~ .player {
-  bottom: 4px;
-  left: -44px;
-  transform: scale(0.45, 0.45);
-  transition: all 0.3s ease-in;
-}
-
-.shadow {
-  background: rgba(17, 17, 17, 0.8);
-  width: 366px;
-  height: 50px;
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  box-shadow: 0px -15px 40px rgba(17, 17, 17, 0.8);
-}
-
-.footer {
-  background: none;
-  font-family: FontAwesome;
-  color: #6d6d6d;
-  font-size: 15px;
-  line-height: 15px;
-  height: 45px;
-  width: 360px;
-  position: absolute;
-  bottom: 10px;
-  left: 23px;
-  z-index: 20;
-  transition: all 0.15s linear;
-  transition: bottom 0.3s linear;
-}
 
 .love:before {
   content: "\f08a";
@@ -570,10 +370,7 @@ td > #repeat:checked ~ label.repeat:before {
   transition: all 0.15s linear;
 }
 
-.screen > #magicButton:checked ~ .footer {
-  bottom: -60px;
-  transition: all 0.3s ease-in;
-}
+
 
 .current {
   position: absolute;
@@ -593,4 +390,3 @@ audio {
 li{
   list-style: none;
 }
-
