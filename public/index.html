@@ -15,58 +15,6 @@
 
 		<!-- Song List -->
 		<table id="list" class="list">
-			<!--
-			<tr class="song">
-				<td class="nr">
-					<h5>1</h5>
-				</td>
-				<td class="title">
-						<li id="song1" data-value="song1.mp3" onclick="updateSource('song1')">
-							<h6>song1</h6>
-						</li>
-				</td>
-				<td class="length">
-					<h5>3:22</h5>
-				</td>
-				<td>
-					<input type="checkbox" id="heart1" checked />
-					<label class="zmr" for="heart1"></label>
-				</td>
-			</tr>
-
-			<tr class="song">
-				<td class="nr">
-					<h5>2</h5>
-				</td>
-				<td class="title">
-				<li id="song2" data-value="song2.mp3" onclick="updateSource('song2')"><h6>song2</h6></li>
-
-				</td>
-				<td class="length">
-					<h5>3:34</h5>
-				</td>
-				<td>
-					<input type="checkbox" id="heart2" />
-					<label class="zmr" for="heart2"></label>
-				</td>
-			</tr>
-
-			<tr class="song">
-				<td class="nr">
-					<h5>3</h5>
-				</td>
-				<td class="title">
-						<li id="song3" data-value="song3.mp3" onclick="updateSource('song3')"><h6>song3</h6></li>
-				</td>
-				<td class="length">
-					<h5>3:27</h5>
-				</td>
-				<td>
-					<input type="checkbox" id="heart3" checked />
-					<label class="zmr" for="heart3"></label>
-				</td>
-			</tr>
-		-->
 		</table>
 
 		<!-- Cover -->
@@ -160,6 +108,49 @@
 	  	</script>
 		<script type="text/javascript" src="./main.js"></script>
 		<script src="https://use.fontawesome.com/32a0411295.js"></script>
-
+		<script type="text/javascript">
+			var list = document.getElementById('list');
+			var items = listFiles();
+			for (var i = 0; i < items.length; i++) {
+				var song = document.createElement('tr');
+				song.class = 'song';
+				list.appendChild(song);
+				var nr = document.createElement('td');
+				nr.class = 'nr';
+				var title = document.createElement('td');
+				title.class = 'title';
+				var length = document.createElement('length');
+				length.class = 'length';
+				var heart_td = document.createElement('td');
+				heart_td.id = 'heart_td_' + (i+1);
+				song.appendChild(nr);
+				song.appendChild(title);
+				song.appendChild(length);
+				song.appendChild(heart_td);
+				var number = document.createElement('h5');
+				number.innerHTML = i + 1;
+				nr.appendChild(number);
+				var li_song = document.createElement('li');
+				li_song.id = items[i];
+				li_song.dataValue = items[i];
+				li_song.onclick = updateSource(items[i]);
+				title.appendChild(li_song);
+				var title_header = document.createElement('h6');
+				title_header.innerHTML = items[i];
+				li_song.appendChild(title_header);
+				var no_length = document.createElement('h5');
+				no_length.innerHTML = "length";
+				length.appendChild(no_length);
+				var input = document.createElement('input');
+				input.type = "checkbox";
+				input.id = "heart" + (i+1);
+				input.checked = "true";
+				heart_td.appendChild(input);
+				var label = document.createElement('label');
+				label.class = "zmr";
+				label.for = "heart" + (i+1);
+				label.checked = "true";
+				heart_td.appendChild(label);
+		</script>
 	</body>
 </html>

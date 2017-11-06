@@ -4,8 +4,6 @@ var bars = document.getElementById("bars");
 var title = document.getElementById("title");
 var artist = document.getElementById("artist");
 
-listSong();
-
 function togglePlayPause() {
    if (audio.paused || audio.ended) {
       playpause.title = "Pause";
@@ -24,8 +22,8 @@ function togglePlayPause() {
 
 
 //audio.src ="http://localhost:3003/music?id=song1.mp3";
-title.innerHTML="song1";
-artist.innerHTML="artist1";
+//title.innerHTML="song1";
+//artist.innerHTML="artist1";
 
 
 function listFiles() {
@@ -65,28 +63,48 @@ function updateSource(id){
 function listSong() {
     var list = document.getElementById('list');
     var items = listFiles();
-    var list_song = "";
     for (var i = 0; i < items.length; i++) {
-        list_song +=
-        '<tr class="song">' +
-            '<td class="nr">' +
-                '<h5>' + (i+1) + '</h5>' +
-            '</td>' +
-            '<td class="title">' +
-                '<li id="' + items[i] + '" data-value="' + items[i] + '" onclick="updateSource(\'' + items[i] + '\')">' +
-                    '<h6>' + items[i] + '</h6>' +
-                '</li>' +
-            '</td>' +
-            '<td class="length">' +
-                '<h5>' + 'length' + '</h5>' +
-            '</td>' +
-            '<td>' +
-                '<input type="checkbox" id="heart' + (i+1) + '" checked />' +
-                '<label class="zmr" for="heart' + (i+1) + '" checked />' +
-            '</td>' +
-        '</tr>' + '\n';
+        var song = document.createElement('tr');
+        song.class = 'song';
+        list.appendChild(song);
+        var nr = document.createElement('td');
+        nr.class = 'nr';
+        var title = document.createElement('td');
+        title.class = 'title';
+        var length = document.createElement('length');
+        length.class = 'length';
+        var heart_td = document.createElement('td');
+        heart_td.id = 'heart_td_' + (i+1);
+        song.appendChild(nr);
+        song.appendChild(title);
+        song.appendChild(length);
+        song.appendChild(heart_td);
+        var number = document.createElement('h5');
+        number.innerHTML = i + 1;
+        nr.appendChild(number);
+        var li_song = document.createElement('li');
+        li_song.id = items[i];
+        li_song.dataValue = items[i];
+        li_song.onclick = updateSource(items[i]);
+        title.appendChild(li_song);
+        var title_header = document.createElement('h6');
+        title_header.innerHTML = items[i];
+        li_song.appendChild(title_header);
+        var no_length = document.createElement('h5');
+        no_length.innerHTML = "length";
+        length.appendChild(no_length);
+        var input = document.createElement('input');
+        input.type = "checkbox";
+        input.id = "heart" + (i+1);
+        input.checked = "true";
+        heart_td.appendChild(input);
+        var label = document.createElement('label');
+        label.class = "zmr";
+        label.for = "heart" + (i+1);
+        label.checked = "true";
+        heart_td.appendChild(label);
+        console.log("L'interfaccia è uscita?");
     }
-    list.innerHTML = list_song;
 }
 
 function handleKeyPress(e) { //non usare!
