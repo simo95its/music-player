@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var path = require('path');
 /*
 var request = require('request');
 
@@ -140,6 +141,23 @@ app.get('/', function(req, res) {
     return res.redirect('./public');
 });
 
+app.get('/list', function(req,res) {
+    const path = './music';
+    var files = fileList(path).map((file) => file.split(path.sep).slice(-1)[0]);
+    files = files.map((file) => file.split("\\").slice(-1)[0]);
+    console.log('files: ' + typeof files)
+    //var json = JSON.stringify(files);
+    res.send(files);
+    res.end();
+});
+
+function fileList(dir) {
+    return fs.readdirSync(dir).reduce(function(list, file) {
+        var name = path.join(dir, file);
+        var isDir = fs.statSync(name).isDirectory();
+        return list.concat(isDir ? fileList(name) : [name]);
+    }, []);
+}
 
 app.get('/music', function(req, res) {
     var fileId = req.query.id;
@@ -156,6 +174,7 @@ app.get('/music', function(req, res) {
             res.end();
         }
     });
+
 });
 
 app.get('/download', function(req, res) {

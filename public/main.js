@@ -4,6 +4,8 @@ var bars = document.getElementById("bars");
 var title = document.getElementById("title");
 var artist = document.getElementById("artist");
 
+listSong();
+
 function togglePlayPause() {
    if (audio.paused || audio.ended) {
       playpause.title = "Pause";
@@ -21,10 +23,24 @@ function togglePlayPause() {
 //hello.mp3, divine.mp3, beginning.mp3
 
 
-audio.src ="http://localhost:3003/music?id=song1.mp3";
+//audio.src ="http://localhost:3003/music?id=song1.mp3";
 title.innerHTML="song1";
 artist.innerHTML="artist1";
 
+
+function listFiles() {
+    var items = {};
+    $.ajax({
+        url: "http://localhost:3003/list"
+    })
+    .done(function (data) {
+        //items = JSON.parse(data);
+        items = data;
+        console.log('data: ' + typeof data);
+    });
+    console.log('items: ' + typeof items)
+    return items;
+}
 
 function changeTracks(){
         audio.src ="http://localhost:3003/music?id=hello.mp3";
@@ -32,16 +48,45 @@ function changeTracks(){
         playpause.title = "Pause";
         audio.play();
         bars.hidden = false;
-};
+}
 
 function updateSource(id){
+    audio.pause()
+    playpause.title = "Pause";
+    bars.hidden = "true";
     audio.src="http://localhost:3003/music?id=" + document.getElementById(id).getAttribute('data-value');
-    //document.getElementById('title').innerHTML="Shape of You";
-    //document.getElementById('artist').innerHTML="Ed Sheeran";
+    //title.innerHTML="Shape of You";
+    //artist.innerHTML="Ed Sheeran";
     audio.load();
-    playpause.title = "Pause"; //non funziona
     audio.play();
+    playpause.title = "Play";
+}
 
+function listSong() {
+    var list = document.getElementById('list');
+    var items = listFiles();
+    var list_song = "";
+    for (var i = 0; i < items.length; i++) {
+        list_song +=
+        '<tr class="song">' +
+            '<td class="nr">' +
+                '<h5>' + (i+1) + '</h5>' +
+            '</td>' +
+            '<td class="title">' +
+                '<li id="' + items[i] + '" data-value="' + items[i] + '" onclick="updateSource(\'' + items[i] + '\')">' +
+                    '<h6>' + items[i] + '</h6>' +
+                '</li>' +
+            '</td>' +
+            '<td class="length">' +
+                '<h5>' + 'length' + '</h5>' +
+            '</td>' +
+            '<td>' +
+                '<input type="checkbox" id="heart' + (i+1) + '" checked />' +
+                '<label class="zmr" for="heart' + (i+1) + '" checked />' +
+            '</td>' +
+        '</tr>' + '\n';
+    }
+    list.innerHTML = list_song;
 }
 
 function handleKeyPress(e) { //non usare!
