@@ -6,17 +6,19 @@ var artist = document.getElementById("artist");
 
 function togglePlayPause() {
    if (audio.paused || audio.ended) {
-      playpause.title = "Pause";
+      $('#btnPlayPause').removeClass('play');
+      $('#btnPlayPause').addClass('pause');
       audio.play();
       bars.hidden = false;
    } else {
-      playpause.title = "Play";
+      $('#btnPlayPause').removeClass('pause');
+      $('#btnPlayPause').addClass('play');
       audio.pause();
       bars.hidden = true;
    }
 }
 
-/* 
+/*
 vecchia funzione
 function listFiles() {
     var items = {};
@@ -41,13 +43,19 @@ function changeTracks(){
 }
 
 function updateSource(id){
-    audio.pause()
-    playpause.title = "Pause";
-    bars.hidden = "true";
-    audio.src="http://localhost:3003/music?id=" + document.getElementById(id).getAttribute('value');    
+    togglePlayPause();
+    audio.src="http://localhost:3003/music?id=" + document.getElementById(id).getAttribute('id');
     audio.load();
-    audio.play();
-    playpause.title = "Play";
+    togglePlayPause()
+    /*
+    var audioPlay = audio.play();
+    if (audioPlay !== undefined) {
+        audioPlay.then(_ => {
+            audio.pause();
+        }).catch(e => {
+            console.log("ccsinid");
+        })
+    }*/
 }
 
 /* function listSong() {

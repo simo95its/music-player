@@ -33,7 +33,7 @@
 
 .play:before {
   content: "\f04b";
-  cursor: pointer;
+  /*cursor: pointer;*/
   transition: all 0.15s linear;
 }
 
@@ -42,7 +42,7 @@
   transition: all 0.15s linear;
 }
 
-td > #play:checked ~ label.play:before {
+.pause:before {
   content: "\f04c";
   transition: all 0.15s linear;
 }

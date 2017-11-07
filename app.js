@@ -1,6 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
+var audioMetaData = require('audio-metadata');
 /*
 var request = require('request');
 
@@ -145,9 +146,16 @@ app.get('/list', function(req,res) {
     const path = './music';
     var files = fileList(path).map((file) => file.split(path.sep).slice(-1)[0]);
     files = files.map((file) => file.split("\\").slice(-1)[0]);
-    console.log('files: ' + typeof files)
-    //var json = JSON.stringify(files);
-    res.send(files);
+    console.log('files: ' + typeof files);
+    console.log(files);
+    var metadata_files = metadata(files);
+    var obj = {
+        files: files,
+        metadata: metadata_files
+    };
+    var json = JSON.stringify(obj);
+    console.log(metadata(files));
+    res.send(json);
     res.end();
 });
 
@@ -216,3 +224,16 @@ var generateRandomString = function(length) {
   return text;
 };
 */
+
+function metadata(filename) {
+    var array = [];
+    for (var i = 0; i < filename.length; i++) {
+        var oggData = fs.readFileSync(__dirname + '/music/' + filename[i]);
+        //var metadataOgg = audioMetaData.ogg(oggData);
+        //var metadataID3V1 = audioMetaData.id3v1(oggData);
+        var metadataID3V2 = audioMetaData.id3v2(oggData);
+        array.push(metadataID3V2);
+
+    }
+    return array;
+}
