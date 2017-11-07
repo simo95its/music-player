@@ -11,17 +11,21 @@
 	<audio id="audio"></audio>
 
 	<!-- Search -->
-	<div class="search">
-		<input id="searchbar" type="text" name="" value="Search a song" onkeypress="handleKeyPress(event)">
+	<div id="popup" class="popup">
+		<div class="search">
+			<input id="searchbar" type="text" placeholder="Search a song" onkeypress="handleKeyPress(event)">
+			<i class="fa fa-search" aria-hidden="true"></i>
+		</div>
+
+		<!-- Song List -->
+		<table id="list" class="list"></table>
 	</div>
 
-	<!-- Song List -->
-	<table id="list" class="list">
-	</table>
 
 	<!-- Cover -->
+	<div id="toggle" class="menu" toggle-target="popup">Menu</div>
 	<div class="coverImage">
-		<img src="song.png" alt="">
+		<img src="song.png">
 	</div>
 
 	<!-- Player -->
@@ -59,7 +63,7 @@
 				<label class="backward" for="backward"></label>
 			</td>
 			<td>
-				<input type="checkbox" id="inpPlayPause" onclick="togglePlayPause()"/>
+				<input type="checkbox" id="inpPlayPause" onclick="togglePlayPause()" />
 				<label id="btnPlayPause" class="play" for="inpPlayPause"></label>
 			</td>
 			<td>
@@ -67,48 +71,19 @@
 				<label class="forward" for="forward"></label>
 			</td>
 		</table>
-		<table class="footer">
-			<td>
-				<input type="checkbox" id="love" checked />
-				<label class="love" for="love"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="shuffle" />
-				<label class="shuffle" for="shuffle"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="repeat" checked />
-				<label class="repeat" for="repeat"></label>
-			</td>
-			<td>
-				<input type="checkbox" id="options" />
-				<label class="options" for="options"></label>
-			</td>
-		</table>
 	</div>
-
-
-
-	<!--
-		<article class="screen" hidden="true">
-
-			Magic Button
-			<input type="checkbox" value="None" id="magicButton" name="check" />
-			<label class="main" for="magicButton"></label>
-
-			<div class="current">
-				<h2>STRESSED OUT</h2>
-			</div>
-
-
-		</article> -->
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	 crossorigin="anonymous">
 	</script>
 	<script type="text/javascript" src="./main.js"></script>
 	<script src="https://use.fontawesome.com/32a0411295.js"></script>
+	<script src="https://use.fontawesome.com/81e18d6c6d.js"></script>
 	<script type="text/javascript">
+
+		$('#menu').click(function () {
+			$('#popup').show;
+		});
 
 		var list = document.getElementById('list');
 		//var items = listFiles();
@@ -116,7 +91,7 @@
 		$.ajax({
 			url: "http://localhost:3003/list"
 		}).done(function (data) {
-			items = data.parseJSON();
+			//items = JSON.parse(data);
 			console.log('data: ' + data);
 			console.log(typeof data)
 			items = data;
@@ -132,39 +107,24 @@
 				var title = document.createElement('td');
 				title.class = 'title';
 				//var length = document.createElement('length');
-				//length.class = 'length';
-				var heart_td = document.createElement('td');
-				heart_td.id = 'heart_td_' + (i + 1);
+				//length.class = 'length';				
 				song.appendChild(nr);
 				song.appendChild(title);
-				//song.appendChild(length);
-				song.appendChild(heart_td);
+				//song.appendChild(length);				
 				var number = document.createElement('h5');
 				number.innerHTML = i + 1;
 				nr.appendChild(number);
 				var li_song = document.createElement('li');
 				var nome = items[i];
 				li_song.id = nome;
-				//li_song.value = "'" + items[i] + "'";
-				//li_song.onclick = updateSource(li_song.id);
 				title.appendChild(li_song);
-				li_song.setAttribute('onclick', 'updateSource("' + li_song.id+ '")');
+				song.setAttribute('onclick', 'updateSource("' + li_song.id + '")');
 				var title_header = document.createElement('h6');
 				title_header.innerHTML = items[i].split(".", 1);
 				li_song.appendChild(title_header);
 				var no_length = document.createElement('h5');
 				//no_length.innerHTML = "length";
-				//length.appendChild(no_length);
-				var input = document.createElement('input');
-				input.type = "checkbox";
-				input.id = "heart" + (i + 1);
-				input.checked = "true";
-				heart_td.appendChild(input);
-				var label = document.createElement('label');
-				label.class = "zmr";
-				label.for = "heart" + (i + 1);
-				label.checked = "true";
-				heart_td.appendChild(label);
+				//length.appendChild(no_length);				
 			}
 		});
 
