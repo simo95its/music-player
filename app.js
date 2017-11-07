@@ -2,17 +2,17 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var audioMetaData = require('audio-metadata');
+
 /*
 var request = require('request');
-
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
-*/
-/*
-var client_id = ''; // Your client id
-var client_secret = ''; // Your secret
-var redirect_uri = ''; // Your redirect uri
+
+
+var client_id = 'cbe01343ad2d4534a207e35ae778090f'; // Your client id
+var client_secret = 'd72dbeffcf8841c6be52c0970bd0da9b'; // Your secret
+var redirect_uri = 'http://localhost:3003/callback'; // Your redirect uri
 */
 
 //var stateKey = 'spotify_auth_state';
@@ -230,10 +230,11 @@ function metadata(filename) {
     for (var i = 0; i < filename.length; i++) {
         var oggData = fs.readFileSync(__dirname + '/music/' + filename[i]);
         //var metadataOgg = audioMetaData.ogg(oggData);
-        //var metadataID3V1 = audioMetaData.id3v1(oggData);
-        var metadataID3V2 = audioMetaData.id3v2(oggData);
-        array.push(metadataID3V2);
-
+        var metadataID3V1 = audioMetaData.id3v1(oggData);
+        //var metadataID3V2 = audioMetaData.id3v2(oggData);
+        if(metadataID3V1 !== null) {
+            array.push(metadataID3V1);
+        }
     }
     return array;
 }

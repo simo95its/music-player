@@ -99,8 +99,6 @@
 			<div class="current">
 				<h2>STRESSED OUT</h2>
 			</div>
-
-
 		</article> -->
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -109,21 +107,19 @@
 	<script type="text/javascript" src="./main.js"></script>
 	<script src="https://use.fontawesome.com/32a0411295.js"></script>
 	<script type="text/javascript">
-
 		var list = document.getElementById('list');
 		//var items = listFiles();
-		var items = {};
 		$.ajax({
 			url: "http://localhost:3003/list"
 		}).done(function (data) {
-			items = data.parseJSON();
+			var items = $.parseJSON(data);
 			console.log('data: ' + data);
-			console.log(typeof data)
-			items = data;
-			console.log('items: ' + items)
-			console.log(typeof items)
+			console.log(typeof data);
+			//var items = data;
+			console.log('items: ' + items);
+			console.log(typeof items);
 
-			for (var i = 0; i < items.length; i++) {
+			for (var i = 0; i < items.metadata.length; i++) {
 				var song = document.createElement('tr');
 				song.class = 'song';
 				list.appendChild(song);
@@ -143,14 +139,14 @@
 				number.innerHTML = i + 1;
 				nr.appendChild(number);
 				var li_song = document.createElement('li');
-				var nome = items[i];
+				var nome = items.metadata[i].title;
 				li_song.id = nome;
 				//li_song.value = "'" + items[i] + "'";
 				//li_song.onclick = updateSource(li_song.id);
 				title.appendChild(li_song);
 				li_song.setAttribute('onclick', 'updateSource("' + li_song.id+ '")');
 				var title_header = document.createElement('h6');
-				title_header.innerHTML = items[i].split(".", 1);
+				title_header.innerHTML = items.files[i].split(".", 1);
 				li_song.appendChild(title_header);
 				var no_length = document.createElement('h5');
 				//no_length.innerHTML = "length";
