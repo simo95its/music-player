@@ -14,7 +14,7 @@ body {
   background: #ff564c;
   padding: 0;
   margin: 0;
-  height: 100vh;
+  /*height: 100vh;*/
   width: 100vh;
 }
 
@@ -114,7 +114,6 @@ h6 {
   color: #f0f0f0;
 }
 
-
 input[type=checkbox] {
   visibility: hidden;
   margin: 0;
@@ -123,14 +122,6 @@ input[type=checkbox] {
   height: 0;
   width: 0;
 }
-
-
-
-
-
-
-
-
 
 .list {
   border-spacing: 0px 2px;
@@ -145,13 +136,6 @@ input[type=checkbox] {
   transition: all 0.3s ease-in;
   */
 }
-
-
-
-
-
-
-
 .list tr {
   transform-origin: 0% 50%;
   height: 50px;
@@ -165,63 +149,6 @@ input[type=checkbox] {
   cursor: pointer;
 }
 
-
-
-.screen > #magicButton:checked ~ .list {
-  top: 192px;
-  left: 12px;
-  opacity: 1;
-  visibility: visible;
-  transform: scale(1, 1);
-  transition: all 0.3s ease-in;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(1) {
-  opacity: 1;
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.185s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(2) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.2s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(3) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.215s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(4) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.23s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(5) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.245s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(6) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.26s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(7) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.275s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(8) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.29s;
-}
-
-.screen > #magicButton:checked ~ table tr:nth-child(9) {
-  animation: harlem 0.3s linear forwards;
-  animation-delay: 0.305s;
-}
-
 label.zmr:before {
   font-family: FontAwesome;
   content: "\f08a";
@@ -230,60 +157,6 @@ label.zmr:before {
   line-height: 15px;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.15s linear;
-}
-
-td > #heart:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart1:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart2:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart3:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart4:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart5:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart6:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart7:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
-  transition: all 0.15s linear;
-}
-
-td > #heart8:checked ~ label.zmr:before {
-  content: "\f004";
-  color: #ff564c;
   transition: all 0.15s linear;
 }
 
@@ -370,8 +243,6 @@ td > #repeat:checked ~ label.repeat:before {
   transition: all 0.15s linear;
 }
 
-
-
 .current {
   position: absolute;
   right: 23px;
@@ -388,5 +259,92 @@ audio {
   visibility: hidden;
 }
 li{
-  list-style: none;
+  list-style: none;  
 }
+.list{
+  display: block;
+  overflow-y: scroll;  
+}
+.list tr{
+  display: flex;
+  border-width:1px 2px 1px 2px;
+  border-style: solid;
+  border-color: #FF564C; 
+  align-items: center;
+}
+
+table::-webkit-scrollbar {
+  width: 1em;
+}
+
+table::-webkit-scrollbar-button {
+  display: none;
+}
+
+table::-webkit-scrollbar-thumb {
+background-color: #4d4d4d;
+outline: 1px solid slategrey;
+}
+
+.search{
+  display:flex;
+  justify-content: center;
+  background-color: white;
+}
+.search>i{
+  font-size:20px;
+  padding: 5px;
+}
+
+@media (max-width: 450px) { 
+  .search{
+    
+  }
+  
+  .list {
+    border-spacing: 0px 2px;
+    width: 100%;
+    height: 100%;
+    position: absolute;    
+    left: 0;   
+  }
+
+  .bodyPlayer {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    height: 50%;
+    width: 100%;
+    background: #111;    
+  }
+
+  .coverImage {
+    width: 100%;
+    height: 50%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*
+    transform-origin: 0% 0%;
+    transition: all 0.3s ease-in;
+    */
+  }
+
+  .menu{
+    display:block;
+    position: relative;
+
+  }
+  .popup{           
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    background-color: black; 
+    display: none;
+  }
+   
+ }
