@@ -16,16 +16,8 @@ function togglePlayPause() {
    }
 }
 
-//traccia iniziale
-//le canzoni che ho messo in music sono 3 i cui file si chiamano come nel tutorial
-//hello.mp3, divine.mp3, beginning.mp3
-
-
-//audio.src ="http://localhost:3003/music?id=song1.mp3";
-//title.innerHTML="song1";
-//artist.innerHTML="artist1";
-
-
+/* 
+vecchia funzione
 function listFiles() {
     var items = {};
     $.ajax({
@@ -38,7 +30,7 @@ function listFiles() {
     });
     console.log('items: ' + typeof items)
     return items;
-}
+} */
 
 function changeTracks(){
         audio.src ="http://localhost:3003/music?id=hello.mp3";
@@ -52,15 +44,13 @@ function updateSource(id){
     audio.pause()
     playpause.title = "Pause";
     bars.hidden = "true";
-    audio.src="http://localhost:3003/music?id=" + document.getElementById(id).getAttribute('data-value');
-    //title.innerHTML="Shape of You";
-    //artist.innerHTML="Ed Sheeran";
+    audio.src="http://localhost:3003/music?id=" + document.getElementById(id).getAttribute('value');    
     audio.load();
     audio.play();
     playpause.title = "Play";
 }
 
-function listSong() {
+/* function listSong() {
     var list = document.getElementById('list');
     var items = listFiles();
     for (var i = 0; i < items.length; i++) {
@@ -105,7 +95,7 @@ function listSong() {
         heart_td.appendChild(label);
         console.log("L'interfaccia è uscita?");
     }
-}
+} */
 
 function handleKeyPress(e) { //non usare!
     console.log("tasto premuto");
