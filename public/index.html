@@ -81,24 +81,26 @@
 	<script src="https://use.fontawesome.com/81e18d6c6d.js"></script>
 	<script type="text/javascript">
 
+
 		$('#menu').click(function () {
 			$('#popup').show;
 		});
 
 		var list = document.getElementById('list');
 		//var items = listFiles();
-		var items = {};
 		$.ajax({
 			url: "http://localhost:3003/list"
 		}).done(function (data) {
-			//items = JSON.parse(data);
-			console.log('data: ' + data);
-			console.log(typeof data)
-			items = data;
-			console.log('items: ' + items)
-			console.log(typeof items)
 
-			for (var i = 0; i < items.length; i++) {
+			var items = $.parseJSON(data);
+
+			console.log('data: ' + data);
+			console.log(typeof data);
+			//var items = data;
+			console.log('items: ' + items);
+			console.log(typeof items);
+
+			for (var i = 0; i < items.metadata.length; i++) {
 				var song = document.createElement('tr');
 				song.class = 'song';
 				list.appendChild(song);
@@ -115,12 +117,12 @@
 				number.innerHTML = i + 1;
 				nr.appendChild(number);
 				var li_song = document.createElement('li');
-				var nome = items[i];
+				var nome = items.metadata[i].title;
 				li_song.id = nome;
 				title.appendChild(li_song);
 				song.setAttribute('onclick', 'updateSource("' + li_song.id + '")');
 				var title_header = document.createElement('h6');
-				title_header.innerHTML = items[i].split(".", 1);
+				title_header.innerHTML = items.files[i].split(".", 1);
 				li_song.appendChild(title_header);
 				var no_length = document.createElement('h5');
 				//no_length.innerHTML = "length";
