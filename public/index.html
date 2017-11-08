@@ -23,7 +23,11 @@
 
 
 	<!-- Cover -->
-	<div id="toggle" class="menu" toggle-target="popup">Menu</div>
+	<div id="toogle" onclick="$('#toogle').click(function () {
+			$('#popup').show();
+		});">
+	<i class="fa fa-bars menu" toggle-target="popup" aria-hidden="true"></i>
+	</div>
 	<div class="coverImage">
 		<img src="song.png">
 	</div>
@@ -59,7 +63,7 @@
 		</div>
 		<table class="player">
 			<td>
-				<input type="checkbox" id="backward" />
+				<input type="checkbox" id="backward" onclick="changeTracks('backward')"/>
 				<label class="backward" for="backward"></label>
 			</td>
 			<td>
@@ -67,7 +71,7 @@
 				<label id="btnPlayPause" class="play" for="inpPlayPause"></label>
 			</td>
 			<td>
-				<input type="checkbox" id="forward" onclick="changeTracks()" />
+				<input type="checkbox" id="forward" onclick="changeTracks('forward')" />
 				<label class="forward" for="forward"></label>
 			</td>
 		</table>
@@ -79,58 +83,6 @@
 	<script type="text/javascript" src="./main.js"></script>
 	<script src="https://use.fontawesome.com/32a0411295.js"></script>
 	<script src="https://use.fontawesome.com/81e18d6c6d.js"></script>
-	<script type="text/javascript">
-
-
-		$('#menu').click(function () {
-			$('#popup').show;
-		});
-
-		var list = document.getElementById('list');
-		//var items = listFiles();
-		$.ajax({
-			url: "http://localhost:3003/list"
-		}).done(function (data) {
-
-			var items = $.parseJSON(data);
-
-			console.log('data: ' + data);
-			console.log(typeof data);
-			//var items = data;
-			console.log('items: ' + items);
-			console.log(typeof items);
-
-			for (var i = 0; i < items.metadata.length; i++) {
-				var song = document.createElement('tr');
-				song.class = 'song';
-				list.appendChild(song);
-				var nr = document.createElement('td');
-				nr.class = 'nr';
-				var title = document.createElement('td');
-				title.class = 'title';
-				//var length = document.createElement('length');
-				//length.class = 'length';				
-				song.appendChild(nr);
-				song.appendChild(title);
-				//song.appendChild(length);				
-				var number = document.createElement('h5');
-				number.innerHTML = i + 1;
-				nr.appendChild(number);
-				var li_song = document.createElement('li');
-				var nome = items.metadata[i].title;
-				li_song.id = nome;
-				title.appendChild(li_song);
-				song.setAttribute('onclick', 'updateSource("' + li_song.id + '")');
-				var title_header = document.createElement('h6');
-				title_header.innerHTML = items.files[i].split(".", 1);
-				li_song.appendChild(title_header);
-				var no_length = document.createElement('h5');
-				//no_length.innerHTML = "length";
-				//length.appendChild(no_length);				
-			}
-		});
-
-	</script>
 </body>
 
 </html>

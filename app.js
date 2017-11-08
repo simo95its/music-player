@@ -10,9 +10,9 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
 
-var client_id = 'cbe01343ad2d4534a207e35ae778090f'; // Your client id
-var client_secret = 'd72dbeffcf8841c6be52c0970bd0da9b'; // Your secret
-var redirect_uri = 'http://localhost:3003/callback'; // Your redirect uri
+var client_id = ''; // Your client id
+var client_secret = ''; // Your secret
+var redirect_uri = ''; // Your redirect uri
 */
 
 //var stateKey = 'spotify_auth_state';
