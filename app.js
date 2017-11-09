@@ -3,6 +3,110 @@ var fs = require('fs');
 var path = require('path');
 var audioMetaData = require('audio-metadata');
 
+
+
+var app = express();
+
+app.use('/public', express.static(__dirname + '/public'));
+
+app.get('/', function(req, res) {
+    return res.redirect('./public');
+});
+
+app.get('/list', function(req,res) {
+    const path = './music';
+    var files = fileList(path).map((file) => file.split(path.sep).slice(-1)[0]);
+    files = files.map((file) => file.split("\\").slice(-1)[0]);
+    var metadata_files = metadata(files);
+    var obj = {
+        files: files,
+        metadata: metadata_files
+    };
+    var json = JSON.stringify(obj);
+    res.send(json);
+    res.end();
+});
+
+function fileList(dir) {
+    return fs.readdirSync(dir).reduce(function(list, file) {
+        var name = path.join(dir, file);
+        var isDir = fs.statSync(name).isDirectory();
+        return list.concat(isDir ? fileList(name) : [name]);
+    }, []);
+}
+
+app.get('/music', function(req, res) {
+    var fileId = req.query.id;
+    var file = __dirname + '/music/' + fileId;
+    fs.exists(file, function(exists) {
+        if(exists)
+        {
+            var rstream = fs.createReadStream(file);
+            rstream.pipe(res);
+        }
+        else
+        {
+            res.send("Its a 404");
+            res.end();
+        }
+    });
+
+});
+
+app.get('/download', function(req, res) {
+    var fileId = req.query.id;
+    var file = __dirname + '/music/' + fileId;
+    fs.exists(file, function(exists) {
+        if(exists)
+        {
+            res.setHeader('Content-disposition', 'attachment; filename=' + fileId);
+            res.setHeader('Content-Type', 'application/audio/mpeg3');
+            var rstream = fs.createReadStream(file);
+            rstream.pipe(res);
+        }
+        else
+        {
+            res.send("Its a 404");
+            res.end();
+        }
+    });
+});
+
+app.listen(3003, function() {
+    console.log('App listening on port 3003!');
+});
+
+function metadata(filename) {
+    var array = [];
+    for (var i = 0; i < filename.length; i++) {
+        var oggData = fs.readFileSync(__dirname + '/music/' + filename[i]);
+        //var metadataOgg = audioMetaData.ogg(oggData);
+        var metadataID3V1 = audioMetaData.id3v1(oggData);
+        //var metadataID3V2 = audioMetaData.id3v2(oggData);
+        if(metadataID3V1 !== null) {
+            array.push(metadataID3V1);
+        }
+    }
+    return array;
+}
+
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
+ /*
+var generateRandomString = function(length) {
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+*/
+
 /*
 var request = require('request');
 var cors = require('cors');
@@ -17,7 +121,6 @@ var redirect_uri = ''; // Your redirect uri
 
 //var stateKey = 'spotify_auth_state';
 
-var app = express();
 /*
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -25,7 +128,7 @@ app.use(function(req, res, next) {
   next();
 });
 */
-app.use('/public', express.static(__dirname + '/public'));
+
 /*
 app.get('/login', function(req, res) {
 
@@ -138,103 +241,3 @@ app.get('/callback', function(req, res, next) {
   }
 });
 */
-app.get('/', function(req, res) {
-    return res.redirect('./public');
-});
-
-app.get('/list', function(req,res) {
-    const path = './music';
-    var files = fileList(path).map((file) => file.split(path.sep).slice(-1)[0]);
-    files = files.map((file) => file.split("\\").slice(-1)[0]);
-    console.log('files: ' + typeof files);
-    console.log(files);
-    var metadata_files = metadata(files);
-    var obj = {
-        files: files,
-        metadata: metadata_files
-    };
-    var json = JSON.stringify(obj);
-    console.log(metadata(files));
-    res.send(json);
-    res.end();
-});
-
-function fileList(dir) {
-    return fs.readdirSync(dir).reduce(function(list, file) {
-        var name = path.join(dir, file);
-        var isDir = fs.statSync(name).isDirectory();
-        return list.concat(isDir ? fileList(name) : [name]);
-    }, []);
-}
-
-app.get('/music', function(req, res) {
-    var fileId = req.query.id;
-    var file = __dirname + '/music/' + fileId;
-    fs.exists(file, function(exists) {
-        if(exists)
-        {
-            var rstream = fs.createReadStream(file);
-            rstream.pipe(res);
-        }
-        else
-        {
-            res.send("Its a 404");
-            res.end();
-        }
-    });
-
-});
-
-app.get('/download', function(req, res) {
-    var fileId = req.query.id;
-    var file = __dirname + '/music/' + fileId;
-    fs.exists(file, function(exists) {
-        if(exists)
-        {
-            res.setHeader('Content-disposition', 'attachment; filename=' + fileId);
-            res.setHeader('Content-Type', 'application/audio/mpeg3');
-            var rstream = fs.createReadStream(file);
-            rstream.pipe(res);
-        }
-        else
-        {
-            res.send("Its a 404");
-            res.end();
-        }
-    });
-});
-
-app.listen(3003, function() {
-    console.log('App listening on port 3003!');
-});
-
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
- /*
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
-*/
-
-function metadata(filename) {
-    var array = [];
-    for (var i = 0; i < filename.length; i++) {
-        var oggData = fs.readFileSync(__dirname + '/music/' + filename[i]);
-        //var metadataOgg = audioMetaData.ogg(oggData);
-        var metadataID3V1 = audioMetaData.id3v1(oggData);
-        //var metadataID3V2 = audioMetaData.id3v2(oggData);
-        if(metadataID3V1 !== null) {
-            array.push(metadataID3V1);
-        }
-    }
-    return array;
-}

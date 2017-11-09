@@ -1,5 +1,3 @@
-
-
 $(function() {
     var audio = document.getElementById('audio');
     var playpause = document.getElementById("play");
@@ -9,25 +7,13 @@ $(function() {
     var items = {};
     var track;
 
-    $('#toogle').click(function () {
-        $('#popup').css( "display", "block" );
-    });
-
-    var list = document.getElementById('list');
-    //var items = listFiles();
+    var list = document.getElementById('list');;
     $.ajax({
         url: "http://localhost:3003/list"
     }).done(function (data) {
-
         items = $.parseJSON(data);
 
-        console.log('data: ' + data);
-        console.log(typeof data);
-        //var items = data;
-        console.log('items: ' + items);
-        console.log(typeof items);
-
-        for (var i = 0; i < items.metadata.length; i++) {
+        for (var i = 0; i < items.files.length; i++) {
             var song = document.createElement('tr');
             song.class = 'song';
             list.appendChild(song);
@@ -35,11 +21,8 @@ $(function() {
             nr.class = 'nr';
             var title = document.createElement('td');
             title.class = 'title';
-            //var length = document.createElement('length');
-            //length.class = 'length';
             song.appendChild(nr);
             song.appendChild(title);
-            //song.appendChild(length);
             var number = document.createElement('h5');
             number.innerHTML = i + 1;
             nr.appendChild(number);
@@ -50,21 +33,20 @@ $(function() {
             song.setAttribute('onclick', 'updateSource("' + li_song.id + '")');
             var title_header = document.createElement('h6');
             title_header.innerHTML = items.files[i].split(".", 1);
-            var artist_node = document.createElement('h5');
-            artist_node.id = 'artist';
-            artist_node.innerHTML = items.metadata[i].artist;
             li_song.appendChild(title_header);
             li_song.appendChild(artist)
             var no_length = document.createElement('h5');
-            //no_length.innerHTML = "length";
-            //length.appendChild(no_length);
         }
     });
-    while (items.files !== undefined) {
-        track = items.files[0];
-        audio.src = 'http://localhost:3003/music?id=' + track;
-        audio.load();
+    /*
+    while ((typeof items.files) !== undefined) {
+        if ((typeof items.files) !== undefined) {
+            track = items.files[0];
+            audio.src = 'http://localhost:3003/music?id=' + track;
+            audio.load();
+        }
     }
+    */
 });
 
 function togglePlayPause() {
@@ -98,27 +80,11 @@ function updateSource(id) {
     track = document.getElementById(id).getAttribute('id');
     audio.src = "http://localhost:3003/music?id=" + track;
     title.innerHTML = id.split(".", 1);
-    var artist_name = document.getElementById(artist).innerHTML;
-    artist.innerHTML = artist_name;
     togglePlayPause();
-
-    /*
-    var audioPlay = audio.play();
-    if (audioPlay !== undefined) {
-        audioPlay.then(_ => {
-            audio.pause();
-        }).catch(e => {
-            console.log("ccsinid");
-        })
-    }*/
 }
 
-function handleKeyPress(e) { //non usare!
-    console.log("tasto premuto");
+function handleKeyPress(e) {
     if (e.KeyCode == 13 || e.which == 13) {
-        console.log("return pressed");
-
-        console.log("call api");
         playSong('strobe', 'deadmau5');
     }
 }
