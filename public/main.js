@@ -7,46 +7,40 @@ $(function() {
     var items = {};
     var track;
 
-    var list = document.getElementById('list');;
+    var list = document.getElementById('list');
     $.ajax({
         url: "http://localhost:3003/list"
     }).done(function (data) {
         items = $.parseJSON(data);
 
         for (var i = 0; i < items.files.length; i++) {
+            //Creation
             var song = document.createElement('tr');
-            song.class = 'song';
-            list.appendChild(song);
             var nr = document.createElement('td');
-            nr.class = 'nr';
-            var title = document.createElement('td');
-            title.class = 'title';
-            song.appendChild(nr);
-            song.appendChild(title);
             var number = document.createElement('h5');
-            number.innerHTML = i + 1;
-            nr.appendChild(number);
+            var title = document.createElement('td');
             var li_song = document.createElement('li');
-            var nome = items.files[i];
-            li_song.id = nome;
-            title.appendChild(li_song);
-            song.setAttribute('onclick', 'updateSource("' + li_song.id + '")');
             var title_header = document.createElement('h6');
+
+            //Initialization
+            song.class = 'song';
+
+            nr.class = 'nr';
+            number.innerHTML = i + 1;
+            title.class = 'title';
+            var nome = items.files[i]; li_song.id = nome; //TODO Refactor
+            song.setAttribute('onclick', 'updateSource("' + li_song.id + '")'); //TODO Refactor
             title_header.innerHTML = items.files[i].split(".", 1);
+
+            //Visualization
+            list.appendChild(song);
+            song.appendChild(nr);
+            nr.appendChild(number);
+            song.appendChild(title);
+            title.appendChild(li_song);
             li_song.appendChild(title_header);
-            li_song.appendChild(artist)
-            var no_length = document.createElement('h5');
         }
     });
-    /*
-    while ((typeof items.files) !== undefined) {
-        if ((typeof items.files) !== undefined) {
-            track = items.files[0];
-            audio.src = 'http://localhost:3003/music?id=' + track;
-            audio.load();
-        }
-    }
-    */
 });
 
 function togglePlayPause() {
@@ -54,7 +48,7 @@ function togglePlayPause() {
         $('#btnPlayPause').removeClass('play');
         $('#btnPlayPause').addClass('pause');
         audio.load()
-        audio.play();
+        //audio.play();
         bars.hidden = false;
     } else {
         $('#btnPlayPause').removeClass('pause');
