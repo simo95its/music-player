@@ -12,7 +12,7 @@ $(function() {
         url: "http://localhost:3003/list"
     }).done(function (data) {
         items = $.parseJSON(data);
-
+        console.log(items);
         for (var i = 0; i < items.files.length; i++) {
             //Creation
             var song = document.createElement('tr');
